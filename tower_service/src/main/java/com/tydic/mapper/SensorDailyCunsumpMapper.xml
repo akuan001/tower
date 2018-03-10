@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tydic.dao.SensorDailyCunsumpMapper" >
+  <resultMap id="BaseResultMap" type="com.tydic.po.SensorDailyCunsump" >
+    <id column="NodeCode" property="nodecode" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="SensorName" property="sensorname" jdbcType="VARCHAR" />
+    <result column="ChargeDay" property="chargeday" jdbcType="DATE" />
+    <result column="TelOperatorID" property="teloperatorid" jdbcType="INTEGER" />
+    <result column="ElCunsump" property="elcunsump" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    NodeCode, id, SensorName, ChargeDay, TelOperatorID, ElCunsump
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tydic.po.SensorDailyCunsumpExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sensordailycunsump
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sensordailycunsump
+    where NodeCode = #{nodecode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_sensordailycunsump
+    where NodeCode = #{nodecode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tydic.po.SensorDailyCunsumpExample" >
+    delete from tb_sensordailycunsump
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tydic.po.SensorDailyCunsump" >
+    insert into tb_sensordailycunsump (NodeCode, id, SensorName, 
+      ChargeDay, TelOperatorID, ElCunsump
+      )
+    values (#{nodecode,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{sensorname,jdbcType=VARCHAR}, 
+      #{chargeday,jdbcType=DATE}, #{teloperatorid,jdbcType=INTEGER}, #{elcunsump,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tydic.po.SensorDailyCunsump" >
+    insert into tb_sensordailycunsump
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nodecode != null" >
+        NodeCode,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sensorname != null" >
+        SensorName,
+      </if>
+      <if test="chargeday != null" >
+        ChargeDay,
+      </if>
+      <if test="teloperatorid != null" >
+        TelOperatorID,
+      </if>
+      <if test="elcunsump != null" >
+        ElCunsump,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nodecode != null" >
+        #{nodecode,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sensorname != null" >
+        #{sensorname,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeday != null" >
+        #{chargeday,jdbcType=DATE},
+      </if>
+      <if test="teloperatorid != null" >
+        #{teloperatorid,jdbcType=INTEGER},
+      </if>
+      <if test="elcunsump != null" >
+        #{elcunsump,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tydic.po.SensorDailyCunsumpExample" resultType="java.lang.Integer" >
+    select count(*) from tb_sensordailycunsump
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_sensordailycunsump
+    <set >
+      <if test="record.nodecode != null" >
+        NodeCode = #{record.nodecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sensorname != null" >
+        SensorName = #{record.sensorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeday != null" >
+        ChargeDay = #{record.chargeday,jdbcType=DATE},
+      </if>
+      <if test="record.teloperatorid != null" >
+        TelOperatorID = #{record.teloperatorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.elcunsump != null" >
+        ElCunsump = #{record.elcunsump,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_sensordailycunsump
+    set NodeCode = #{record.nodecode,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER},
+      SensorName = #{record.sensorname,jdbcType=VARCHAR},
+      ChargeDay = #{record.chargeday,jdbcType=DATE},
+      TelOperatorID = #{record.teloperatorid,jdbcType=INTEGER},
+      ElCunsump = #{record.elcunsump,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tydic.po.SensorDailyCunsump" >
+    update tb_sensordailycunsump
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sensorname != null" >
+        SensorName = #{sensorname,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeday != null" >
+        ChargeDay = #{chargeday,jdbcType=DATE},
+      </if>
+      <if test="teloperatorid != null" >
+        TelOperatorID = #{teloperatorid,jdbcType=INTEGER},
+      </if>
+      <if test="elcunsump != null" >
+        ElCunsump = #{elcunsump,jdbcType=REAL},
+      </if>
+    </set>
+    where NodeCode = #{nodecode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tydic.po.SensorDailyCunsump" >
+    update tb_sensordailycunsump
+    set id = #{id,jdbcType=INTEGER},
+      SensorName = #{sensorname,jdbcType=VARCHAR},
+      ChargeDay = #{chargeday,jdbcType=DATE},
+      TelOperatorID = #{teloperatorid,jdbcType=INTEGER},
+      ElCunsump = #{elcunsump,jdbcType=REAL}
+    where NodeCode = #{nodecode,jdbcType=VARCHAR}
+  </update>
+  <sql id="Alias_Base_Column_List" >
+    tbSensordailycunsump.NodeCode,tbSensordailycunsump.id,tbSensordailycunsump.SensorName,tbSensordailycunsump.ChargeDay,tbSensordailycunsump.TelOperatorID,tbSensordailycunsump.ElCunsump
+  </sql>
+  <sql id="Alias_Base_Column_As_Alias_List" >
+    tbSensordailycunsump.NodeCode as "nodecode",tbSensordailycunsump.id as "id",tbSensordailycunsump.SensorName as "sensorname",tbSensordailycunsump.ChargeDay as "chargeday",tbSensordailycunsump.TelOperatorID as "teloperatorid",tbSensordailycunsump.ElCunsump as "elcunsump"
+  </sql>
+</mapper>

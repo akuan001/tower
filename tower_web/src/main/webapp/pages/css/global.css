@@ -1,0 +1,54 @@
+@charset "utf-8";
+/*共用标签*/
+*, ::after, ::before {-webkit-box-sizing:border-box;box-sizing:border-box;}
+body,h1,h2,h3,h4,h5,h6,hr,p,pre,dl,dt,dd,ul,ol,li,th,td,form,fieldset,legend,button,input,textarea{margin:0;padding:0;}
+body{color:#222;font:14px/20px "微软雅黑",Tahoma,"宋体";background-color:#f8f8f8;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+address,em,i,cite{font-style:normal;}
+button,input,select,textarea{font-size:100%;}
+textarea{resize:none;}
+ul,ol,li{list-style:none;}
+fieldset,img{border:0;vertical-align:middle;}
+table{border-collapse:collapse;border-spacing:0;}
+p{word-wrap:break-word;}
+a{text-decoration:none;color:#222;cursor:pointer}
+a:hover{color:#222;}
+.fl,.fr,.di{display:inline;}
+.fl{float:left;}
+.fr{float:right;}
+.dib{display:inline-block;}
+.tc{text-align:center;}
+.db{display:block;}
+.fb{font-weight:bold;}
+.lh34{line-height:34px;}
+.c-blue{color:#337df6;}
+
+
+/*边距*/
+.m-b-10{margin-bottom:10px;}
+.m-t-30{margin-top: 30px;}
+.m-t-40{margin-top: 30px;}
+.m-r-10{margin-right: 10px;}
+.m-l-10{margin-left: 10px;}
+.mlr5{margin:0 5px;}
+
+
+/*表单*/
+textarea:focus,input:focus,.uneditable-input:focus{border-color:#73a2f0;box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(51, 125, 246, 0.4);outline:0 none;}
+
+/*botton*/
+.btn{border-radius:500px;padding:6px 20px;}
+.btn-blue a{background:#4b90ff;color:#fff;}
+.btn-blue a:hover{background:#337aed;color:#fff;}
+.btn-green-line a{border:1px solid #1ab61a;color:#1ab61a;}
+.btn-green-line a:hover{border:1px solid #1ab61a;color:#fff;background:#1ab61a;}
+.btn-green a{background:#48b619;color:#fff;padding:6px 25px;}
+.btn-green a:hover{background:#389e0c;color:#fff;}
+
+
+
+
+
+
+
+

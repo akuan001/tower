@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tydic.dao.NodeMapper">
+    <resultMap id="FullResultMap" type="com.tydic.po.NodeEx"
+        extends="com.tydic.dao.NodeMapper.BaseResultMap">
+        <!--extends field -->
+    </resultMap>
+    <!-- <select id="selectByParam" resultMap="FullResultMap" parameterType="com.tydic.bo.NodeParamBO"> 
+        select * from TB_Node tbNode </select> -->
+    <select id="selectByParam" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.NodeParamBO">
+        select
+        NodeCode,ID,NodeName,City
+        from
+        TB_Node
+        tbNode
+        where 1 = 1
+        <if test="id !=null">
+            and tbNode.id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="nodecode !=null">
+            and tbNode.NodeCode = #{nodecode,jdbcType=VARCHAR}
+        </if>
+        order by tbNode.ID
+    </select>
+</mapper>

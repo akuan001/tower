@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tydic.dao.SensorValuesMapper" >
+  <resultMap id="BaseResultMap" type="com.tydic.po.SensorValues" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NodeCode" property="nodecode" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="Sensor01" property="sensor01" jdbcType="REAL" />
+    <result column="Sensor02" property="sensor02" jdbcType="REAL" />
+    <result column="Sensor03" property="sensor03" jdbcType="REAL" />
+    <result column="Sensor04" property="sensor04" jdbcType="REAL" />
+    <result column="Sensor05" property="sensor05" jdbcType="REAL" />
+    <result column="Sensor06" property="sensor06" jdbcType="REAL" />
+    <result column="Sensor07" property="sensor07" jdbcType="REAL" />
+    <result column="Sensor08" property="sensor08" jdbcType="REAL" />
+    <result column="Sensor09" property="sensor09" jdbcType="REAL" />
+    <result column="Sensor10" property="sensor10" jdbcType="REAL" />
+    <result column="Sensor11" property="sensor11" jdbcType="REAL" />
+    <result column="Sensor12" property="sensor12" jdbcType="REAL" />
+    <result column="Sensor13" property="sensor13" jdbcType="REAL" />
+    <result column="Sensor14" property="sensor14" jdbcType="REAL" />
+    <result column="Sensor15" property="sensor15" jdbcType="REAL" />
+    <result column="Sensor16" property="sensor16" jdbcType="REAL" />
+    <result column="UploadTime" property="uploadtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NodeCode, IP, Sensor01, Sensor02, Sensor03, Sensor04, Sensor05, Sensor06, Sensor07, 
+    Sensor08, Sensor09, Sensor10, Sensor11, Sensor12, Sensor13, Sensor14, Sensor15, Sensor16, 
+    UploadTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tydic.po.SensorValuesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sensorvalues
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.tydic.po.SensorValuesExample" >
+    delete from tb_sensorvalues
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tydic.po.SensorValues" >
+    insert into tb_sensorvalues (ID, NodeCode, IP, 
+      Sensor01, Sensor02, Sensor03, 
+      Sensor04, Sensor05, Sensor06, 
+      Sensor07, Sensor08, Sensor09, 
+      Sensor10, Sensor11, Sensor12, 
+      Sensor13, Sensor14, Sensor15, 
+      Sensor16, UploadTime)
+    values (#{id,jdbcType=INTEGER}, #{nodecode,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{sensor01,jdbcType=REAL}, #{sensor02,jdbcType=REAL}, #{sensor03,jdbcType=REAL}, 
+      #{sensor04,jdbcType=REAL}, #{sensor05,jdbcType=REAL}, #{sensor06,jdbcType=REAL}, 
+      #{sensor07,jdbcType=REAL}, #{sensor08,jdbcType=REAL}, #{sensor09,jdbcType=REAL}, 
+      #{sensor10,jdbcType=REAL}, #{sensor11,jdbcType=REAL}, #{sensor12,jdbcType=REAL}, 
+      #{sensor13,jdbcType=REAL}, #{sensor14,jdbcType=REAL}, #{sensor15,jdbcType=REAL}, 
+      #{sensor16,jdbcType=REAL}, #{uploadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tydic.po.SensorValues" >
+    insert into tb_sensorvalues
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="nodecode != null" >
+        NodeCode,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="sensor01 != null" >
+        Sensor01,
+      </if>
+      <if test="sensor02 != null" >
+        Sensor02,
+      </if>
+      <if test="sensor03 != null" >
+        Sensor03,
+      </if>
+      <if test="sensor04 != null" >
+        Sensor04,
+      </if>
+      <if test="sensor05 != null" >
+        Sensor05,
+      </if>
+      <if test="sensor06 != null" >
+        Sensor06,
+      </if>
+      <if test="sensor07 != null" >
+        Sensor07,
+      </if>
+      <if test="sensor08 != null" >
+        Sensor08,
+      </if>
+      <if test="sensor09 != null" >
+        Sensor09,
+      </if>
+      <if test="sensor10 != null" >
+        Sensor10,
+      </if>
+      <if test="sensor11 != null" >
+        Sensor11,
+      </if>
+      <if test="sensor12 != null" >
+        Sensor12,
+      </if>
+      <if test="sensor13 != null" >
+        Sensor13,
+      </if>
+      <if test="sensor14 != null" >
+        Sensor14,
+      </if>
+      <if test="sensor15 != null" >
+        Sensor15,
+      </if>
+      <if test="sensor16 != null" >
+        Sensor16,
+      </if>
+      <if test="uploadtime != null" >
+        UploadTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nodecode != null" >
+        #{nodecode,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sensor01 != null" >
+        #{sensor01,jdbcType=REAL},
+      </if>
+      <if test="sensor02 != null" >
+        #{sensor02,jdbcType=REAL},
+      </if>
+      <if test="sensor03 != null" >
+        #{sensor03,jdbcType=REAL},
+      </if>
+      <if test="sensor04 != null" >
+        #{sensor04,jdbcType=REAL},
+      </if>
+      <if test="sensor05 != null" >
+        #{sensor05,jdbcType=REAL},
+      </if>
+      <if test="sensor06 != null" >
+        #{sensor06,jdbcType=REAL},
+      </if>
+      <if test="sensor07 != null" >
+        #{sensor07,jdbcType=REAL},
+      </if>
+      <if test="sensor08 != null" >
+        #{sensor08,jdbcType=REAL},
+      </if>
+      <if test="sensor09 != null" >
+        #{sensor09,jdbcType=REAL},
+      </if>
+      <if test="sensor10 != null" >
+        #{sensor10,jdbcType=REAL},
+      </if>
+      <if test="sensor11 != null" >
+        #{sensor11,jdbcType=REAL},
+      </if>
+      <if test="sensor12 != null" >
+        #{sensor12,jdbcType=REAL},
+      </if>
+      <if test="sensor13 != null" >
+        #{sensor13,jdbcType=REAL},
+      </if>
+      <if test="sensor14 != null" >
+        #{sensor14,jdbcType=REAL},
+      </if>
+      <if test="sensor15 != null" >
+        #{sensor15,jdbcType=REAL},
+      </if>
+      <if test="sensor16 != null" >
+        #{sensor16,jdbcType=REAL},
+      </if>
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tydic.po.SensorValuesExample" resultType="java.lang.Integer" >
+    select count(*) from tb_sensorvalues
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_sensorvalues
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.nodecode != null" >
+        NodeCode = #{record.nodecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sensor01 != null" >
+        Sensor01 = #{record.sensor01,jdbcType=REAL},
+      </if>
+      <if test="record.sensor02 != null" >
+        Sensor02 = #{record.sensor02,jdbcType=REAL},
+      </if>
+      <if test="record.sensor03 != null" >
+        Sensor03 = #{record.sensor03,jdbcType=REAL},
+      </if>
+      <if test="record.sensor04 != null" >
+        Sensor04 = #{record.sensor04,jdbcType=REAL},
+      </if>
+      <if test="record.sensor05 != null" >
+        Sensor05 = #{record.sensor05,jdbcType=REAL},
+      </if>
+      <if test="record.sensor06 != null" >
+        Sensor06 = #{record.sensor06,jdbcType=REAL},
+      </if>
+      <if test="record.sensor07 != null" >
+        Sensor07 = #{record.sensor07,jdbcType=REAL},
+      </if>
+      <if test="record.sensor08 != null" >
+        Sensor08 = #{record.sensor08,jdbcType=REAL},
+      </if>
+      <if test="record.sensor09 != null" >
+        Sensor09 = #{record.sensor09,jdbcType=REAL},
+      </if>
+      <if test="record.sensor10 != null" >
+        Sensor10 = #{record.sensor10,jdbcType=REAL},
+      </if>
+      <if test="record.sensor11 != null" >
+        Sensor11 = #{record.sensor11,jdbcType=REAL},
+      </if>
+      <if test="record.sensor12 != null" >
+        Sensor12 = #{record.sensor12,jdbcType=REAL},
+      </if>
+      <if test="record.sensor13 != null" >
+        Sensor13 = #{record.sensor13,jdbcType=REAL},
+      </if>
+      <if test="record.sensor14 != null" >
+        Sensor14 = #{record.sensor14,jdbcType=REAL},
+      </if>
+      <if test="record.sensor15 != null" >
+        Sensor15 = #{record.sensor15,jdbcType=REAL},
+      </if>
+      <if test="record.sensor16 != null" >
+        Sensor16 = #{record.sensor16,jdbcType=REAL},
+      </if>
+      <if test="record.uploadtime != null" >
+        UploadTime = #{record.uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_sensorvalues
+    set ID = #{record.id,jdbcType=INTEGER},
+      NodeCode = #{record.nodecode,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      Sensor01 = #{record.sensor01,jdbcType=REAL},
+      Sensor02 = #{record.sensor02,jdbcType=REAL},
+      Sensor03 = #{record.sensor03,jdbcType=REAL},
+      Sensor04 = #{record.sensor04,jdbcType=REAL},
+      Sensor05 = #{record.sensor05,jdbcType=REAL},
+      Sensor06 = #{record.sensor06,jdbcType=REAL},
+      Sensor07 = #{record.sensor07,jdbcType=REAL},
+      Sensor08 = #{record.sensor08,jdbcType=REAL},
+      Sensor09 = #{record.sensor09,jdbcType=REAL},
+      Sensor10 = #{record.sensor10,jdbcType=REAL},
+      Sensor11 = #{record.sensor11,jdbcType=REAL},
+      Sensor12 = #{record.sensor12,jdbcType=REAL},
+      Sensor13 = #{record.sensor13,jdbcType=REAL},
+      Sensor14 = #{record.sensor14,jdbcType=REAL},
+      Sensor15 = #{record.sensor15,jdbcType=REAL},
+      Sensor16 = #{record.sensor16,jdbcType=REAL},
+      UploadTime = #{record.uploadtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <sql id="Alias_Base_Column_List" >
+    tbSensorvalues.ID,tbSensorvalues.NodeCode,tbSensorvalues.IP,tbSensorvalues.Sensor01,tbSensorvalues.Sensor02,tbSensorvalues.Sensor03,tbSensorvalues.Sensor04,tbSensorvalues.Sensor05,tbSensorvalues.Sensor06,tbSensorvalues.Sensor07,tbSensorvalues.Sensor08,tbSensorvalues.Sensor09,tbSensorvalues.Sensor10,tbSensorvalues.Sensor11,tbSensorvalues.Sensor12,tbSensorvalues.Sensor13,tbSensorvalues.Sensor14,tbSensorvalues.Sensor15,tbSensorvalues.Sensor16,tbSensorvalues.UploadTime
+  </sql>
+  <sql id="Alias_Base_Column_As_Alias_List" >
+    tbSensorvalues.ID as "id",tbSensorvalues.NodeCode as "nodecode",tbSensorvalues.IP as "ip",tbSensorvalues.Sensor01 as "sensor01",tbSensorvalues.Sensor02 as "sensor02",tbSensorvalues.Sensor03 as "sensor03",tbSensorvalues.Sensor04 as "sensor04",tbSensorvalues.Sensor05 as "sensor05",tbSensorvalues.Sensor06 as "sensor06",tbSensorvalues.Sensor07 as "sensor07",tbSensorvalues.Sensor08 as "sensor08",tbSensorvalues.Sensor09 as "sensor09",tbSensorvalues.Sensor10 as "sensor10",tbSensorvalues.Sensor11 as "sensor11",tbSensorvalues.Sensor12 as "sensor12",tbSensorvalues.Sensor13 as "sensor13",tbSensorvalues.Sensor14 as "sensor14",tbSensorvalues.Sensor15 as "sensor15",tbSensorvalues.Sensor16 as "sensor16",tbSensorvalues.UploadTime as "uploadtime"
+  </sql>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tydic.dao.TelOperatorMapper">
+    <resultMap id="FullResultMap" type="com.tydic.po.TelOperatorEx"
+        extends="com.tydic.dao.TelOperatorMapper.BaseResultMap">
+        <!--extends field -->
+    </resultMap>
+    <select id="selectTelOperatorByParam" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.TelOperatorParamBO">
+        select
+        a.TelOperatorID as id, b.Name
+        from
+        TB_Sensor
+        a,
+        TB_TelOperator b
+        where
+        a.TelOperatorID =
+        b.id
+        <if test="nodecode !=null">
+            and a.NodeCode = #{nodecode,jdbcType=INTEGER}
+        </if>
+        group by
+        a.TelOperatorID, b.Name
+    </select>
+</mapper>

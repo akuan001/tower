@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tydic.dao.SensorDailyCunsumpMapper">
+    <resultMap id="FullResultMap" type="com.tydic.po.SensorDailyCunsumpEx"
+        extends="com.tydic.dao.SensorDailyCunsumpMapper.BaseResultMap">
+        <!--extends field -->
+        <result column="SumElect" property="sumelect" jdbcType="DOUBLE" />
+    </resultMap>
+    <select id="selectDensorDailyByParam" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.SensorDailyCunsumpParamBO">
+        select
+        a.TelOperatorID, a.ChargeDay, SUM(a.ElCunsump) as SumElect
+        from
+        TB_SensorDailyCunsump a
+        where 1 = 1
+        <if test="teloperatorid !=null">
+            and a.TelOperatorID =
+            #{teloperatorid,jdbcType=INTEGER}
+        </if>
+        <if test="nodecode !=null">
+            and a.NodeCode =
+            #{nodecode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime !=null ">
+            and a.ChargeDay <![CDATA[>=]]>
+            #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime !=null ">
+            and a.ChargeDay <![CDATA[<=]]>
+            #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        group by a.ChargeDay, a.TelOperatorID
+        order by a.ChargeDay
+    </select>
+    <select id="selectDensorDailySumByParam" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.SensorDailyCunsumpParamBO">
+        select
+        a.TelOperatorID, SUM(a.ElCunsump) as SumElect
+        from
+        TB_SensorDailyCunsump a
+        where 1 = 1
+        <if test="nodecode !=null">
+            and a.NodeCode =
+            #{nodecode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime !=null ">
+            and a.ChargeDay <![CDATA[>=]]>
+            #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime !=null ">
+            and a.ChargeDay <![CDATA[<=]]>
+            #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        group by a.TelOperatorID
+    </select>
+    <select id="selectByParam" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.SensorDailyCunsumpParamBO">
+        select
+        a.SensorName, a.ChargeDay, a.TelOperatorID, a.ElCunsump,
+        a.NodeCode, b.name as TelOperatorName, c.NodeName
+        from
+        TB_SensorDailyCunsump a,
+        TB_TelOperator b,
+        TB_Node c
+        where
+        a.TelOperatorID = b.id
+        and
+        a.NodeCode = c.NodeCode
+        <if test="nodecode !=null">
+            and a.NodeCode =
+            #{nodecode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime !=null ">
+            and a.ChargeDay <![CDATA[>=]]>
+            #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime !=null ">
+            and a.ChargeDay <![CDATA[<=]]>
+            #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="chargeday !=null ">
+            and a.ChargeDay =
+            #{chargeday,jdbcType=TIMESTAMP}
+        </if>
+        <if test="sensorname !=null ">
+            and a.SensorName =
+            #{sensorname,jdbcType=VARCHAR}
+        </if>
+        order by a.ChargeDay desc
+    </select>
+    <select id="selectSumElCunsumpByParam" resultType="java.lang.Double"
+        parameterType="com.tydic.bo.SensorDailyCunsumpParamBO">
+        select
+        SUM(a.ElCunsump) as SumElect
+        from
+        TB_SensorDailyCunsump a
+        where 1 = 1
+        <if test="nodecode !=null">
+            and a.NodeCode =
+            #{nodecode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime !=null ">
+            and a.ChargeDay <![CDATA[>=]]>
+            #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime !=null ">
+            and a.ChargeDay <![CDATA[<=]]>
+            #{endTime,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="selectStatisticsByTel" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.SensorDailyCunsumpParamBO">
+        select
+        a.TelOperatorID, b.name as TelOperatorName,
+        SUM(a.ElCunsump) as SumElect
+        from
+        TB_SensorDailyCunsump a,
+        TB_TelOperator b
+        where
+        a.TelOperatorID = b.id
+        <if test="nodecode !=null">
+            and a.NodeCode =
+            #{nodecode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime !=null ">
+            and a.ChargeDay <![CDATA[>=]]>
+            #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime !=null ">
+            and a.ChargeDay <![CDATA[<=]]>
+            #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        group by a.TelOperatorID, b.name
+        order by a.TelOperatorID
+    </select>
+    <select id="selectStatisticsByNode" resultMap="FullResultMap"
+        parameterType="com.tydic.bo.SensorDailyCunsumpParamBO">
+        select
+        a.NodeCode, c.NodeName,
+        SUM(a.ElCunsump) as SumElect
+        from
+        TB_SensorDailyCunsump a,
+        TB_Node c
+        where
+        a.NodeCode = c.NodeCode
+        <if test="nodecode !=null">
+            and a.NodeCode =
+            #{nodecode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime !=null ">
+            and a.ChargeDay <![CDATA[>=]]>
+            #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime !=null ">
+            and a.ChargeDay <![CDATA[<=]]>
+            #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        group by a.NodeCode, c.NodeName
+        order by a.NodeCode
+    </select>
+</mapper>

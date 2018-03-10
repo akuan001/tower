@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <description>apache shiro配置</description>
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/rest/page/login"/>
+        <property name="successUrl" value="/rest/index"/>
+        <property name="filters">
+            <map>  
+               <entry key="role">  
+                    <bean class="com.tydic.system.security.filter.RoleAuthorizationFilter">
+                       </bean>  
+               </entry> 
+            </map> 
+        </property>
+        <property name="unauthorizedUrl" value="/rest/page/401"/>
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 静态资源允许访问 -->
+                /pages/** = anon
+                <!-- 允许 sitemesh加载公共模块-->
+                /rest/common = anon
+                <!-- 登录页允许访问 -->
+                /rest/page/getVerificationcode = anon
+                /rest/page/login = anon
+                /rest/user/login = anon
+                <!-- 密码找回页允许访问 -->
+                /rest/admin/* = anon
+                <!-- 默认页设置-->
+                / = anon
+                <!-- 其他资源需要认证 -->
+                /** = role
+            </value>
+        </property>
+    </bean>
+    
+    <bean id="securityRealm" class="com.tydic.system.security.realm.SecurityRealm">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <!-- 安全管理器 -->    
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	    <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+	    <property name="realms">
+            <list>
+                <ref bean="securityRealm"/>
+            </list>
+        </property>
+	</bean>
+
+    <!-- Shiro生命周期处理器 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    	
+</beans>

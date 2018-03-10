@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="fileDeleteService" class="com.tydic.task.FileDeleteService">
+    </bean>
+    <!-- 临时目录文件删除 -->
+    <bean id="fileDeleteJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="fileDeleteService" /><!-- 指定具体拦截哪个定时任务 -->
+        </property>
+        <property name="targetMethod">
+            <value>execute</value><!-- 指定要执行的类里面的哪个方法 -->
+        </property>
+    </bean>
+    <bean id="fileDeleteCron"
+        class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="fileDeleteJob" /><!-- 指明要调用哪个任务 -->
+        </property>
+        <!-- cron表达式 -->
+        <property name="cronExpression">
+            <value>0 30 2 * * ?</value>
+        </property>
+    </bean>
+    <!-- quartz的调度工厂 调度工厂只能有一个，多个调度任务在list中添加 --><!-- 让spring来自动管理quartz -->
+    <bean id="startQuertz"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!-- 所有的调度列表 -->
+                <ref bean="fileDeleteCron" />
+            </list>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <import resource="classpath*:applicationContext-db-user.xml" />
+    <bean id="userService" class="com.tydic.service.impl.UserServiceImpl">
+        <property name="usersMapper" ref="usersMapper" />
+    </bean>
+    <bean id="businessService" class="com.tydic.service.impl.BusinessServiceImpl">
+        <property name="nodeMapper" ref="nodeMapper" />
+        <property name="sensorMapper" ref="sensorMapper" />
+        <property name="telOperatorMapper" ref="telOperatorMapper" />
+        <property name="sensorValuesMapper" ref="sensorValuesMapper" />
+        <property name="sensorDailyCunsumpMapper" ref="sensorDailyCunsumpMapper" />
+    </bean>
+</beans>
